@@ -1,0 +1,23 @@
+git clone http:// download project
+cd
+git remote remove origin
+git remote add origin http:// your project
+------------copy-----------------------
+git filter-branch -f --env-filter '
+NEW_NAME="BigStar-2024"
+NEW_EMAIL="bigstar2024skytech@gmail.com" 
+if [ "$GIT_COMMITTER_EMAIL" != "$NEW_EMAIL" ]
+then
+export GIT_COMMITTER_NAME="$NEW_NAME"
+export GIT_COMMITTER_EMAIL="$NEW_EMAIL"
+fi
+if [ "$GIT_AUTHOR_EMAIL" != "$NEW_EMAIL" ]
+then
+export GIT_AUTHOR_NAME="$NEW_NAME"
+export GIT_AUTHOR_EMAIL="$NEW_EMAIL"
+fi
+' --tag-name-filter cat -- --branches --tags
+---------------------------------------------------
+git push --all
+git tag --all
+git push --tags
